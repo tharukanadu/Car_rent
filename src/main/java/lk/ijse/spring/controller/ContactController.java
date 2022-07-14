@@ -1,9 +1,7 @@
 package lk.ijse.spring.controller;
 
 import lk.ijse.spring.entity.Contact;
-import lk.ijse.spring.entity.Insurance;
-import lk.ijse.spring.service.ContactServiceImpl;
-import lk.ijse.spring.service.InsuranceServiceImpl;
+import lk.ijse.spring.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +12,7 @@ import java.util.List;
 @CrossOrigin
 public class ContactController {
     @Autowired
-    ContactServiceImpl contactService;
+    ContactService contactService;
 
     @GetMapping
     public List<Contact> getAllContact(){

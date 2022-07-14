@@ -1,13 +1,10 @@
 package lk.ijse.spring.controller;
 
-import lk.ijse.spring.CustomerDTO;
 import lk.ijse.spring.entity.Customer;
-import lk.ijse.spring.service.CustomerServiceImpl;
+import lk.ijse.spring.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -43,13 +40,13 @@ public class CustomerController {
         return new CustomerDTO(id,"chamara","galle","0741515151","male");
         }*/
     @Autowired
-    CustomerServiceImpl customerService;
+  CustomerService customerService;
 
     @GetMapping
     public List<Customer> getAllCustomer(){
         return customerService.getAllCustomer() ;
     }
-@PostMapping
+    @PostMapping
     public void saveCustomer(@ModelAttribute Customer customer){
       customerService.saveCustomer(customer);
     }

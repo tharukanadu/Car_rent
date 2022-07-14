@@ -1,9 +1,7 @@
 package lk.ijse.spring.controller;
 
-import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Payment;
-import lk.ijse.spring.service.CustomerServiceImpl;
-import lk.ijse.spring.service.PaymentServiceImpl;
+import lk.ijse.spring.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +12,7 @@ import java.util.List;
 @CrossOrigin
 public class PaymentController {
     @Autowired
-    PaymentServiceImpl paymentService;
+    PaymentService paymentService;
 
     @GetMapping
     public List<Payment> getAllPayment(){

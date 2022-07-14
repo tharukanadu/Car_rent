@@ -1,9 +1,7 @@
 package lk.ijse.spring.controller;
 
-import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Employee;
-import lk.ijse.spring.service.CustomerServiceImpl;
-import lk.ijse.spring.service.EmployeeServiceImpl;
+import lk.ijse.spring.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +12,7 @@ import java.util.List;
 @CrossOrigin
 public class EmployeeController {
     @Autowired
-    EmployeeServiceImpl employeeService;
+    EmployeeService employeeService;
 
     @GetMapping
     public List<Employee> getAllEmployee(){

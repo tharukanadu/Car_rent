@@ -1,8 +1,6 @@
 package lk.ijse.spring.controller;
 
-import lk.ijse.spring.entity.Customer;
-import lk.ijse.spring.service.CustomerServiceImpl;
-import lk.ijse.spring.service.InsuranceServiceImpl;
+import lk.ijse.spring.service.InsuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +11,7 @@ import java.util.List;
 @CrossOrigin
 public class InsuranceController {
     @Autowired
-    InsuranceServiceImpl insuranceService;
+    InsuranceService insuranceService;
 
     @GetMapping
     public List<lk.ijse.spring.entity.Insurance> getAllCustomer(){

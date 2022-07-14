@@ -1,9 +1,7 @@
 package lk.ijse.spring.controller;
 
 import lk.ijse.spring.entity.Car;
-import lk.ijse.spring.entity.Customer;
-import lk.ijse.spring.service.CarSeviceImpl;
-import lk.ijse.spring.service.CustomerServiceImpl;
+import lk.ijse.spring.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +11,15 @@ import java.util.List;
 @CrossOrigin
 public class CarController {
     @Autowired
-    CarSeviceImpl carSevice;
+    CarService carService;
 
     @GetMapping
     public List<Car> getAllCar(){
-        return carSevice.getAllCar() ;
+        return carService.getAllCar() ;
     }
     @PostMapping
     public void saveCar(@ModelAttribute Car car){
-        carSevice.saveCar(car);
+        carService.saveCar(car);
     }
 
 }
