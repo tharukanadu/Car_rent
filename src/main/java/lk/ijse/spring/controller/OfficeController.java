@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Office;
 import lk.ijse.spring.service.OfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,12 @@ public class OfficeController {
     public void saveOffice(@ModelAttribute Office office){
         officeService.saveOffice(office);
     }
-
+    @PutMapping
+    public void updateOffice(@RequestBody Office office){
+        officeService.updateOffice(office);
+    }
+    @GetMapping(path = "/{office_id}")
+    public Office searchCustomer(@PathVariable String office_id){
+        return officeService.searchOffice(office_id);
+    }
 }

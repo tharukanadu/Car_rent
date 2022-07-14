@@ -26,11 +26,29 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
     @Override
-    public void deleteEmployee(String id){repo.deleteById(id);}
+    public void deleteEmployee(String emp_id){
+        if(repo.existsById(emp_id)) {
+            repo.deleteById(emp_id);
+        }else{
+            throw new RuntimeException("Please chek the employee Id..! No search employee");
+        }
+}
     @Override
-    public void updateEmployee(Employee entity){repo.save(entity);}
+    public void updateEmployee(Employee entity){
+        if(repo.existsById(entity.getEmp_id())){
+            repo.save(entity);
+        }else{
+            throw new RuntimeException("No such employee to update..!Please chek the Id ");
+        }
+}
     @Override
-    public Employee searchEmployee(String id){return repo.findById(id).get();}
+    public Employee searchEmployee(String emp_id){
+        if (repo.existsById(emp_id)) {
+            return repo.findById(emp_id).get();
+        } else {
+            throw new RuntimeException("No employee for "+emp_id);
+        }
+}
     @Override
     public List<Employee> getAllEmployee(){return repo.findAll();}
 }

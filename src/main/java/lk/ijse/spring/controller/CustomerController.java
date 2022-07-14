@@ -50,5 +50,16 @@ public class CustomerController {
     public void saveCustomer(@ModelAttribute Customer customer){
       customerService.saveCustomer(customer);
     }
-
+    @PutMapping
+    public void updateCustomer(@RequestBody Customer customer){
+      customerService.updateCustomer(customer);
+    }
+    @DeleteMapping
+    public void deleteCustomer(@RequestParam String cus_id){
+      customerService.deleteCustomer(cus_id);
+    }
+    @GetMapping(path = "/{cus_id}")
+    public Customer searchCustomer(@PathVariable String cus_id){
+      return customerService.searchCustomer(cus_id);
+    }
 }

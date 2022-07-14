@@ -26,11 +26,29 @@ public class InsuranceServiceImpl implements InsuranceService {
         }
     }
     @Override
-    public void deleteInsurance(String id){repo.deleteById(id);}
+    public void deleteInsurance(String insurance_id){
+        if(repo.existsById(insurance_id)) {
+            repo.deleteById(insurance_id);
+        }else{
+            throw new RuntimeException("Please chek the insurance Id..! No search insurance");
+        }
+    }
     @Override
-    public void updateInsurance(Insurance entity){repo.save(entity);}
+    public void updateInsurance(Insurance entity){
+        if(repo.existsById(entity.getInsurance_id())){
+            repo.save(entity);
+        }else{
+            throw new RuntimeException("No such insurance to update..!Please chek the Id ");
+        }
+    }
     @Override
-    public Insurance searchInsurance(String id){return repo.findById(id).get();}
+    public Insurance searchInsurance(String insurance_id){
+        if (repo.existsById(insurance_id)) {
+            return repo.findById(insurance_id).get();
+        } else {
+            throw new RuntimeException("No insurance for "+insurance_id);
+        }
+    }
     @Override
     public List<Insurance> getAllInsurance(){return repo.findAll();}
 }

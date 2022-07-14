@@ -26,11 +26,29 @@ public class CarSeviceImpl implements CarService {
         }
     }
     @Override
-    public void deleteCar(String id){repo.deleteById(id);}
+    public void deleteCar(String car_id){
+        if(repo.existsById(car_id)) {
+            repo.deleteById(car_id);
+        }else{
+            throw new RuntimeException("Please chek the Car Id..! No search car");
+        }
+    }
     @Override
-    public void updateCar(Car entity){repo.save(entity);}
+    public void updateCar(Car entity){
+        if(repo.existsById(entity.getCar_id())){
+            repo.save(entity);
+        }else{
+            throw new RuntimeException("No such car to update..!Please chek the Id ");
+        }
+    }
     @Override
-    public Car searchCar(String id){return repo.findById(id).get();}
+    public Car searchCar(String car_id){
+        if (repo.existsById(car_id)) {
+            return repo.findById(car_id).get();
+        } else {
+            throw new RuntimeException("No Car for "+car_id);
+        }
+    }
     @Override
     public List<Car> getAllCar(){return repo.findAll();}
 }

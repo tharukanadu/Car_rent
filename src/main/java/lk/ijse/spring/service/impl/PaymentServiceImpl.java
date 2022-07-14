@@ -26,11 +26,29 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
     @Override
-    public void deletePayment(String id){repo.deleteById(id);}
+    public void deletePayment(String payment){
+        if(repo.existsById(payment)) {
+            repo.deleteById(payment);
+        }else{
+            throw new RuntimeException("Please chek the payment Id..! No search payment");
+        }
+    }
     @Override
-    public void updatePayment(Payment entity){repo.save(entity);}
+    public void updatePayment(Payment entity){
+        if(repo.existsById(entity.getPayment())){
+            repo.save(entity);
+        }else{
+            throw new RuntimeException("No such payment to update..!Please chek the Id ");
+        }
+    }
     @Override
-    public Payment searchPayment(String id){return repo.findById(id).get();}
+    public Payment searchPayment(String payment){
+        if (repo.existsById(payment)) {
+            return repo.findById(payment).get();
+        } else {
+            throw new RuntimeException("No payment for "+payment);
+        }
+    }
     @Override
     public List<Payment> getAllPayment(){return repo.findAll();}
 }

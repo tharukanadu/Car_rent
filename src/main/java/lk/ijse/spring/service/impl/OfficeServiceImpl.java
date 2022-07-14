@@ -28,9 +28,21 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public void deleteOffice(String id){repo.deleteById(id);}
     @Override
-    public void updateOffice(Office entity){repo.save(entity);}
+    public void updateOffice(Office entity){
+        if(repo.existsById(entity.getOffice_id())){
+            repo.save(entity);
+        }else{
+            throw new RuntimeException("No such office to update..!Please chek the Id ");
+        }
+    }
     @Override
-    public Office searchOffice(String id){return repo.findById(id).get();}
+    public Office searchOffice(String office_id){
+        if (repo.existsById(office_id)) {
+            return repo.findById(office_id).get();
+        } else {
+            throw new RuntimeException("No office for "+office_id);
+        }
+    }
     @Override
     public List<Office> getAllOffice(){return repo.findAll();}
 }

@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Payment;
 import lk.ijse.spring.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,16 @@ public class PaymentController {
     public void savePayment(@ModelAttribute Payment payment){
         paymentService.savePayment(payment);
     }
-
+    @PutMapping
+    public void updateCustomer(@RequestBody Payment payment){
+        paymentService.updatePayment(payment);
+    }
+    @DeleteMapping
+    public void deletePayment(@RequestParam String payment){
+        paymentService.deletePayment(payment);
+    }
+    @GetMapping(path = "/{payment}")
+    public Payment searchCustomer(@PathVariable String payment){
+        return paymentService.searchPayment(payment);
+    }
 }

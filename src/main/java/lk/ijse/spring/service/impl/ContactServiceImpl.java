@@ -26,11 +26,29 @@ public class ContactServiceImpl implements ContactService {
         }
     }
     @Override
-    public void deleteContact(String id){repo.deleteById(id);}
+    public void deleteContact(String cont_id){
+        if(repo.existsById(cont_id)) {
+            repo.deleteById(cont_id);
+        }else{
+            throw new RuntimeException("Please chek the contact Id..! No search contact");
+        }
+    }
     @Override
-    public void updateContact(Contact entity){repo.save(entity);}
+    public void updateContact(Contact entity){
+        if(repo.existsById(entity.getCont_id())){
+            repo.save(entity);
+        }else{
+            throw new RuntimeException("No such contact to update..!Please chek the Id ");
+        }
+    }
     @Override
-    public Contact searchContact(String id){return repo.findById(id).get();}
+    public Contact searchContact(String cont_id){
+        if (repo.existsById(cont_id)) {
+            return repo.findById(cont_id).get();
+        } else {
+            throw new RuntimeException("No contact for "+cont_id);
+        }
+    }
     @Override
     public List<Contact> getAllContact(){return repo.findAll();}
 
