@@ -6,9 +6,9 @@ import javax.persistence.Id;
 @Entity
 public class Payment {
     @Id
+    private String payment;
     private String cus_id;
     private String cont_id;
-    private String payment;
     private double total_price;
 
     public Payment() {

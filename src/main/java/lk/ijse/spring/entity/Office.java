@@ -7,9 +7,10 @@ import javax.persistence.Id;
 public class Office {
     @Id
     private String office_id;
+    private String office_name;
     private String office_address;
     private String office_manager;
-    private String office_name;
+
 
     public Office() {
     }
