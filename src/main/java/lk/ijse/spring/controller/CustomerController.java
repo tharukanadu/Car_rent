@@ -1,9 +1,12 @@
 package lk.ijse.spring.controller;
 
+import javafx.scene.media.Media;
 import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.service.CustomerService;
+import lk.ijse.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,24 +46,28 @@ public class CustomerController {
     @Autowired
   CustomerService customerService;
 
-    @GetMapping
-    public List<CustomerDTO> getAllCustomer(){
-        return customerService.getAllCustomer() ;
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getAllCustomer(){
+        return new ResponseUtil(200,"Ok", customerService.getAllCustomer());
     }
-    @PostMapping
-    public void saveCustomer(@ModelAttribute CustomerDTO customer){
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil saveCustomer(@ModelAttribute CustomerDTO customer){
       customerService.saveCustomer(customer);
+      return new ResponseUtil(200,"ok",null);
     }
-    @PutMapping
-    public void updateCustomer(@RequestBody CustomerDTO customer){
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateCustomer(@RequestBody CustomerDTO customer){
       customerService.updateCustomer(customer);
+      return new ResponseUtil(200,"ok",null);
+
     }
-    @DeleteMapping
-    public void deleteCustomer(@RequestParam String cus_id){
+    @DeleteMapping(params = {"cus_id"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteCustomer(@RequestParam String cus_id){
       customerService.deleteCustomer(cus_id);
+      return new ResponseUtil(200,"ok",null);
     }
-    @GetMapping(path = "/{cus_id}")
-    public CustomerDTO searchCustomer(@PathVariable String cus_id){
-      return customerService.searchCustomer(cus_id);
+    @GetMapping(path = "/{cus_id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil searchCustomer(@PathVariable String cus_id){
+      return new ResponseUtil(200,"ok",customerService.searchCustomer(cus_id));
     }
 }
