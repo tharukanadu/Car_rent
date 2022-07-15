@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.dto.ContactDTO;
 import lk.ijse.spring.entity.Car;
 import lk.ijse.spring.entity.Contact;
 import lk.ijse.spring.entity.Customer;
@@ -17,15 +18,15 @@ public class ContactController {
     ContactService contactService;
 
     @GetMapping
-    public List<Contact> getAllContact(){
+    public List<ContactDTO> getAllContact(){
         return contactService.getAllContact() ;
     }
     @PostMapping
-    public void saveInsurance(@ModelAttribute Contact contact){
+    public void saveContact(@ModelAttribute ContactDTO contact){
         contactService.saveContact(contact);
     }
     @PutMapping
-    public void updateContact(@RequestBody Contact contact){
+    public void updateContact(@RequestBody ContactDTO contact){
         contactService.updateContact(contact);
     }
     @DeleteMapping
@@ -33,7 +34,7 @@ public class ContactController {
         contactService.deleteContact(cont_id);
     }
     @GetMapping(path = "/{cont_id}")
-    public Contact searchContact(@PathVariable String cont_id){
+    public ContactDTO searchContact(@PathVariable String cont_id){
         return contactService.searchContact(cont_id);
     }
 }

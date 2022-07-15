@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.dto.EmployeeDTO;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Employee;
 import lk.ijse.spring.service.EmployeeService;
@@ -16,15 +17,15 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @GetMapping
-    public List<Employee> getAllEmployee(){
+    public List<EmployeeDTO> getAllEmployee(){
         return employeeService.getAllEmployee() ;
     }
     @PostMapping
-    public void saveEmployee(@ModelAttribute Employee employee){
+    public void saveEmployee(@ModelAttribute EmployeeDTO employee){
         employeeService.saveEmployee(employee);
     }
     @PutMapping
-    public void updateEmployee (@RequestBody Employee employee){
+    public void updateEmployee (@RequestBody EmployeeDTO employee){
         employeeService.updateEmployee(employee);
     }
     @DeleteMapping
@@ -32,7 +33,7 @@ public class EmployeeController {
         employeeService.deleteEmployee(emp_id);
     }
     @GetMapping(path = "/{emp_id}")
-    public Employee searchEmployee(@PathVariable String emp_id){
+    public EmployeeDTO searchEmployee(@PathVariable String emp_id){
         return employeeService.searchEmployee(emp_id);
     }
 }

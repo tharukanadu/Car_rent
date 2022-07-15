@@ -1,14 +1,20 @@
 package lk.ijse.spring.service.impl;
 
+import lk.ijse.spring.dto.CarDTO;
+import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.entity.Car;
 import lk.ijse.spring.entity.Customer;
+import lk.ijse.spring.entity.Employee;
 import lk.ijse.spring.repo.CarRepo;
 import lk.ijse.spring.repo.CustomerRepo;
 import lk.ijse.spring.service.CarService;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 @Service
 @Transactional
@@ -17,10 +23,13 @@ public class CarSeviceImpl implements CarService {
     @Autowired
     private CarRepo repo;
 
+    @Autowired
+    private ModelMapper mapper;
+
     @Override
-    public void saveCar(Car entity){
-        if (!repo.existsById(entity.getCar_id())){
-            repo.save(entity);
+    public void saveCar(CarDTO dto){
+        if (!repo.existsById(dto.getCar_id())){
+            repo.save(mapper.map(dto, Car.class));
         }else {
             throw new RuntimeException("Car Already Exits..!");
         }
@@ -34,21 +43,26 @@ public class CarSeviceImpl implements CarService {
         }
     }
     @Override
-    public void updateCar(Car entity){
-        if(repo.existsById(entity.getCar_id())){
-            repo.save(entity);
+    public void updateCar(CarDTO dto){
+        if(repo.existsById(dto.getCar_id())){
+            repo.save(mapper.map(dto, Car.class));
         }else{
             throw new RuntimeException("No such car to update..!Please chek the Id ");
         }
     }
     @Override
-    public Car searchCar(String car_id){
+    public CarDTO searchCar(String car_id){
         if (repo.existsById(car_id)) {
-            return repo.findById(car_id).get();
+            return mapper.map(repo.findById(car_id).get(), CarDTO.class);
         } else {
             throw new RuntimeException("No Car for "+car_id);
         }
     }
     @Override
-    public List<Car> getAllCar(){return repo.findAll();}
+    public List<CarDTO> getAllCar(){
+        List<Car>all= repo.findAll();
+
+        return mapper.map(all, new TypeToken<List<Car>>() {
+        }.getType());
+    }
 }

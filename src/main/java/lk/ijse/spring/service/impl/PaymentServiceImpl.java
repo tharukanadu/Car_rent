@@ -1,10 +1,14 @@
 package lk.ijse.spring.service.impl;
 
+import lk.ijse.spring.dto.CustomerDTO;
+import lk.ijse.spring.dto.PaymentDTO;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Payment;
 import lk.ijse.spring.repo.CustomerRepo;
 import lk.ijse.spring.repo.PaymentRepo;
 import lk.ijse.spring.service.PaymentService;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +21,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private PaymentRepo repo;
 
+    @Autowired
+    private ModelMapper mapper;
+
     @Override
-    public void savePayment(Payment entity){
-        if (!repo.existsById(entity.getCus_id())){
-            repo.save(entity);
+    public void savePayment(PaymentDTO dto){
+        if (!repo.existsById(dto.getCus_id())){
+            repo.save(mapper.map(dto, Payment.class));
+
         }else {
             throw new RuntimeException("Payment Already Exits..!");
         }
@@ -34,21 +42,27 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
     @Override
-    public void updatePayment(Payment entity){
-        if(repo.existsById(entity.getPayment())){
-            repo.save(entity);
+    public void updatePayment(PaymentDTO dto){
+        if(repo.existsById(dto.getPayment())){
+            repo.save(mapper.map(dto, Payment.class));
         }else{
             throw new RuntimeException("No such payment to update..!Please chek the Id ");
         }
     }
     @Override
-    public Payment searchPayment(String payment){
+    public PaymentDTO searchPayment(String payment){
         if (repo.existsById(payment)) {
-            return repo.findById(payment).get();
+            return mapper.map(repo.findById(payment).get(), PaymentDTO.class);
         } else {
             throw new RuntimeException("No payment for "+payment);
         }
     }
     @Override
-    public List<Payment> getAllPayment(){return repo.findAll();}
+    public List<PaymentDTO> getAllPayment(){
+        List<Payment>all= repo.findAll();
+
+        return mapper.map(all, new TypeToken<List<Payment>>() {
+        }.getType());
+
+    }
 }

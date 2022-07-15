@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.dto.OfficeDTO;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Office;
 import lk.ijse.spring.service.OfficeService;
@@ -15,19 +16,19 @@ public class OfficeController {
     OfficeService officeService;
 
     @GetMapping
-    public List<Office> getAllOffice(){
+    public List<OfficeDTO> getAllOffice(){
         return officeService.getAllOffice() ;
     }
     @PostMapping
-    public void saveOffice(@ModelAttribute Office office){
+    public void saveOffice(@ModelAttribute OfficeDTO office){
         officeService.saveOffice(office);
     }
     @PutMapping
-    public void updateOffice(@RequestBody Office office){
+    public void updateOffice(@RequestBody OfficeDTO office){
         officeService.updateOffice(office);
     }
     @GetMapping(path = "/{office_id}")
-    public Office searchCustomer(@PathVariable String office_id){
+    public OfficeDTO searchCustomer(@PathVariable String office_id){
         return officeService.searchOffice(office_id);
     }
 }

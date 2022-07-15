@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.dto.PaymentDTO;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Payment;
 import lk.ijse.spring.service.PaymentService;
@@ -16,15 +17,15 @@ public class PaymentController {
     PaymentService paymentService;
 
     @GetMapping
-    public List<Payment> getAllPayment(){
+    public List<PaymentDTO> getAllPayment(){
         return paymentService.getAllPayment() ;
     }
     @PostMapping
-    public void savePayment(@ModelAttribute Payment payment){
+    public void savePayment(@ModelAttribute PaymentDTO payment){
         paymentService.savePayment(payment);
     }
     @PutMapping
-    public void updateCustomer(@RequestBody Payment payment){
+    public void updateCustomer(@RequestBody PaymentDTO payment){
         paymentService.updatePayment(payment);
     }
     @DeleteMapping
@@ -32,7 +33,7 @@ public class PaymentController {
         paymentService.deletePayment(payment);
     }
     @GetMapping(path = "/{payment}")
-    public Payment searchCustomer(@PathVariable String payment){
+    public PaymentDTO searchCustomer(@PathVariable String payment){
         return paymentService.searchPayment(payment);
     }
 }

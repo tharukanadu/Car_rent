@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.dto.CustomerDTO;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,15 +44,15 @@ public class CustomerController {
   CustomerService customerService;
 
     @GetMapping
-    public List<Customer> getAllCustomer(){
+    public List<CustomerDTO> getAllCustomer(){
         return customerService.getAllCustomer() ;
     }
     @PostMapping
-    public void saveCustomer(@ModelAttribute Customer customer){
+    public void saveCustomer(@ModelAttribute CustomerDTO customer){
       customerService.saveCustomer(customer);
     }
     @PutMapping
-    public void updateCustomer(@RequestBody Customer customer){
+    public void updateCustomer(@RequestBody CustomerDTO customer){
       customerService.updateCustomer(customer);
     }
     @DeleteMapping
@@ -59,7 +60,7 @@ public class CustomerController {
       customerService.deleteCustomer(cus_id);
     }
     @GetMapping(path = "/{cus_id}")
-    public Customer searchCustomer(@PathVariable String cus_id){
+    public CustomerDTO searchCustomer(@PathVariable String cus_id){
       return customerService.searchCustomer(cus_id);
     }
 }

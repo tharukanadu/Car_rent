@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.dto.CarDTO;
 import lk.ijse.spring.entity.Car;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.service.CarService;
@@ -15,15 +16,15 @@ public class CarController {
     CarService carService;
 
     @GetMapping
-    public List<Car> getAllCar(){
+    public List<CarDTO> getAllCar(){
         return carService.getAllCar() ;
     }
     @PostMapping
-    public void saveCar(@ModelAttribute Car car){
+    public void saveCar(@ModelAttribute CarDTO car){
         carService.saveCar(car);
     }
     @PutMapping
-    public void updateCar(@RequestBody Car car){
+    public void updateCar(@RequestBody CarDTO car){
         carService.updateCar(car);
     }
     @DeleteMapping
@@ -31,7 +32,7 @@ public class CarController {
         carService.deleteCar(car_id);
     }
     @GetMapping(path = "/{car_id}")
-    public Car searchCar(@PathVariable String car_id){
+    public CarDTO searchCar(@PathVariable String car_id){
         return carService.searchCar(car_id);
     }
 }

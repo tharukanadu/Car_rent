@@ -1,13 +1,14 @@
 package lk.ijse.spring.service;
 
+import lk.ijse.spring.dto.PaymentDTO;
 import lk.ijse.spring.entity.Payment;
 
 import java.util.List;
 
 public interface PaymentService {
-    public void savePayment(Payment entity);
+    public void savePayment(PaymentDTO dto);
     public void deletePayment(String id);
-    public void updatePayment(Payment entity);
-    public Payment searchPayment(String id);
-    public List<Payment> getAllPayment();
+    public void updatePayment(PaymentDTO dto);
+    public PaymentDTO searchPayment(String id);
+    public List<PaymentDTO> getAllPayment();
 }

@@ -1,5 +1,6 @@
 package lk.ijse.spring.controller;
 
+import lk.ijse.spring.dto.InsuranceDTO;
 import lk.ijse.spring.entity.Customer;
 import lk.ijse.spring.entity.Employee;
 import lk.ijse.spring.entity.Insurance;
@@ -17,15 +18,15 @@ public class InsuranceController {
     InsuranceService insuranceService;
 
     @GetMapping
-    public List<lk.ijse.spring.entity.Insurance> getAllCustomer(){
+    public List<InsuranceDTO> getAllCustomer(){
         return insuranceService.getAllInsurance() ;
     }
     @PostMapping
-    public void saveInsurance(@ModelAttribute lk.ijse.spring.entity.Insurance insurance){
+    public void saveInsurance(@ModelAttribute InsuranceDTO insurance){
         insuranceService.saveInsurance(insurance);
     }
     @PutMapping
-    public void updateInsurance(@RequestBody Insurance insurance){
+    public void updateInsurance(@RequestBody InsuranceDTO insurance){
         insuranceService.updateInsurance(insurance);
     }
     @DeleteMapping
@@ -33,7 +34,7 @@ public class InsuranceController {
         insuranceService.deleteInsurance(insurance_id);
     }
     @GetMapping(path = "/{insurance_id}")
-    public Insurance searchCustomer(@PathVariable String insurance_id){
+    public InsuranceDTO searchCustomer(@PathVariable String insurance_id){
         return insuranceService.searchInsurance(insurance_id);
     }
 }
