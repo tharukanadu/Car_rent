@@ -31,7 +31,7 @@ public class JPAConfig {
     Environment env;
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource ds, JpaVendorAdapter va){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource ds, JpaVendorAdapter va) {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
 
         bean.setJpaVendorAdapter(va);
@@ -40,6 +40,7 @@ public class JPAConfig {
         return bean;
 
     }
+
     @Bean
     public DataSource dataSource() throws NamingException {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -52,8 +53,9 @@ public class JPAConfig {
         return (DataSource) new JndiTemplate().lookup("java:comp/env/jdbc/pool");
 */
     }
+
     @Bean
-    public JpaVendorAdapter jpaVendorAdapter(){
+    public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter vendor = new HibernateJpaVendorAdapter();
         vendor.setDatabasePlatform(env.getRequiredProperty("my.add.dialect"));
         vendor.setDatabase(Database.MYSQL);
@@ -62,8 +64,9 @@ public class JPAConfig {
         return vendor;
 
     }
-   @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
-   }
+    }
 }

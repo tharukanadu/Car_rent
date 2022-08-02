@@ -1,0 +1,91 @@
+.fw-bold {
+    position: relative;
+    left: 500px;
+    color: crimson;
+    font-size: 30px;
+}
+.office{
+    font-size: 30px;
+    color: #6a1a21;
+}
+.car{
+    font-size: 30px;
+    color: #6a1a21;
+}
+.employee{
+    font-size: 30px;
+    color: #6a1a21;
+}
+.contact{
+    font-size: 30px;
+    color: #6a1a21;
+}
+.payment{
+    font-size: 30px;
+    color: #6a1a21;
+}
+.insurance{
+    font-size: 30px;
+    color: #6a1a21;
+}
+.shadow{
+    color: rebeccapurple;
+    font-size: 20px;
+
+}
+.card2{
+    position: relative;
+    bottom: 370px;
+}
+.card3{
+    position: relative;
+    bottom: 733px;
+}
+.icon{
+    position: absolute;
+    z-index: 100;
+    top: 20px;
+    right: 20px;
+    padding: 20px;
+
+}
+
+.icon>button {
+
+}
+#iconFbBtn{
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+   border-radius: 100%;
+}
+#iconInsterBtn{
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+#iconWhatsAppBtn{
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+#iconTeleBtn{
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}

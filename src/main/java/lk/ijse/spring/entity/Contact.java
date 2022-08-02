@@ -8,11 +8,11 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
+@Entity
 
 public class Contact {
     @Id
