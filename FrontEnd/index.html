@@ -250,5 +250,470 @@
 
 </div>
 
+<div class="carFrame">
+    <p class="car"><dfn id="car"></dfn>CARS</p>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+            Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#cus">Customer</a></li>
+            <li><a class="dropdown-item" href="#off">Office</a></li>
+            <li><a class="dropdown-item" href="#emp">Employee</a></li>
+            <li><a class="dropdown-item" href="#ins">Insurance</a></li>
+            <li><a class="dropdown-item" href="#con">Contact</a></li>
+            <li><a class="dropdown-item" href="#pay">Payment</a></li>
+
+        </ul>
+    </div>
+    <br>
+
+    <div class="input row g-3">
+        <form id="carForm">
+            <div class="col-md-6 ">
+                <label for="carId" class="form-label text-primary">Car ID</label>
+                <input type="text" class="form-control" id="carId" placeholder="id" name="carId">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label text-primary">Car Type</label>
+                <select class="form-select" aria-label="Car Type" disabled>
+                    <option selected>Car Type</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="carColor" class="form-label text-primary">Car Color</label>
+                <input type="text" class="form-control" id="carColor" placeholder="Color" name="carColor">
+            </div>
+            <div class="col-md-6">
+                <label for="rentPrice" class="form-label text-primary">Rent Price</label>
+                <input type="text" class="form-control" id="rentPrice" placeholder="rentPrice" name="rentPrice">
+            </div>
+            <div class="col-md-6">
+                <label for="insurance_num" class="form-label text-primary">Insurance Number</label>
+                <input type="text" class="form-control" id="insurance_num" placeholder="insurance_num"
+                       name="insurance_num">
+            </div>
+            <button type="button" class="btn btn-primary" id="carSaveBtn">Save</button>
+            <button type="button" class="btn btn-success" id="carGetAllBtn">GetAll</button>
+            <button type="button" class="btn btn-danger" id="carDeleteBtn">Delete</button>
+            <button type="button" class="btn btn-warning" id="carUpdateBtn">Update</button>
+        </form>
+        <hr class="border border-primary border-3 opacity-75">
+
+    </div>
+    <!--lable-->
+    <div class="card" style="width: 18rem;">
+        <img src="assets/img/car5.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Luxury Cars</h5>
+        </div>
+        <p class="card-text">Car type - Toyota,Mercedes,BMW</p>
+        <p> Daily Rate - 10000-20000</p>
+        <p>Free km for a day - 100</p>
+        <p>Free km for a month - 2400</p>
+        <p>price per Extra km - 85-100</p>
+    </div>
+    <!--lable 2-->
+    <div class="card2 rounded mx-auto d-block" style="width: 18rem;">
+        <img src="assets/img/premium.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Premium Cars</h5>
+        </div>
+        <p class="card-text">Car type - Toyota,Perodua</p>
+        <p> Daily Rate - 5500-6000</p>
+        <p>Free km for a day - 100</p>
+        <p>Free km for a month - 2400</p>
+        <p>price per Extra km - 50-65</p>
+    </div>
+    <!--lable3-->
+    <div class="card3 rounded float-end" style="width: 18rem;">
+        <img src="assets/img/general.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">General Cars</h5>
+        </div>
+        <p class="card-text">Car type - Toyota,Perodua,Suzuki</p>
+        <p> Daily Rate - 2500-5000</p>
+        <p>Free km for a day - 100</p>
+        <p>Free km for a month - 2400</p>
+        <p>price per Extra km - 30-50</p>
+    </div>
+
+
+    <!--///////////////////////-->
+    <div class="row">
+        <div class="col">
+
+            <table class="table table-dark table-hover">
+                <thead class="bg-danger text-white">
+
+
+                <tr>
+                    <td>Car_id</td>
+                    <td>Car_Type</td>
+                    <td>Car_Color</td>
+                    <td>Rent_Price</td>
+                    <td>Insurance Number</td>
+
+                </tr>
+                </thead>
+
+
+                <tbody id="tableCar">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br><br>
+</div>
+
+<div><p class="employee"><dfn id="emp"></dfn>EMPLOYEE</p>
+    <div class="dropdown">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+            Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#cus">Customer</a></li>
+            <li><a class="dropdown-item" href="#car">Car</a></li>
+            <li><a class="dropdown-item" href="#off">Office</a></li>
+            <li><a class="dropdown-item" href="#ins">Insurance</a></li>
+            <li><a class="dropdown-item" href="#con">Contact</a></li>
+            <li><a class="dropdown-item" href="#pay">Payment</a></li>
+
+        </ul>
+    </div>
+    <br>
+
+    <div class="input row g-3">
+        <form id="employeeForm">
+            <div class="col-md-6 ">
+                <label for="emp_id" class="form-label text-primary">Employee ID</label>
+                <input type="text" class="form-control" id="emp_id" placeholder="id" name="emp_id">
+            </div>
+            <div class="col-md-6">
+                <label for="emp_name" class="form-label text-primary">Employee Name</label>
+                <input type="text" class="form-control" id="emp_name" placeholder="name" name="emp_name">
+            </div>
+            <div class="col-md-6">
+                <label for="emp_address" class="form-label text-primary">Car Color</label>
+                <input type="text" class="form-control" id="emp_address" placeholder="address" name="emp_address">
+            </div>
+            <div class="col-md-6">
+                <label for="emp_officeId" class="form-label text-primary">Office ID</label>
+                <input type="text" class="form-control" id="emp_officeId" placeholder="officeId"
+                       name="emp_officeId">
+            </div>
+            <div class="col-md-6">
+                <label for="salary" class="form-label text-primary">Salary</label>
+                <input type="text" class="form-control" id="salary" placeholder="salary" name="salary">
+            </div>
+        </form>
+        <hr class="border border-primary border-3 opacity-75">
+
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <table class="table table-dark table-hover">
+                <thead class="bg-danger text-white">
+
+
+                <tr>
+                    <td>EmployeeId</td>
+                    <td>Name</td>
+                    <td>Address</td>
+                    <td>Office_Id</td>
+                    <td>Salary</td>
+
+                </tr>
+                </thead>
+
+
+                <tbody id="tableEmployee">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <button type="button" class="btn btn-primary">Primary</button>
+    <button type="button" class="btn btn-success">Success</button>
+    <button type="button" class="btn btn-danger">Danger</button>
+    <button type="button" class="btn btn-warning">Warning</button>
+    <br><br>
+</div>
+
+<div class="contactFrame"><p class="contact"><dfn id="con"></dfn>CONTACT</p>
+    <div class="dropdown">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+            Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Customer</a></li>
+            <li><a class="dropdown-item" href="#">Office</a></li>
+            <li><a class="dropdown-item" href="#">Employee</a></li>
+            <li><a class="dropdown-item" href="#">Car</a></li>
+            <li><a class="dropdown-item" href="#">Insurance</a></li>
+            <li><a class="dropdown-item" href="#">Payment</a></li>
+
+        </ul>
+    </div>
+    <br>
+
+    <div class="input row g-3">
+        <div class="col-md-6 ">
+            <label for="cont_id" class="form-label text-primary">CONTACT ID</label>
+            <input type="text" class="form-control" id="cont_id" placeholder="id" name="cont_id">
+        </div>
+        <div class="col-md-6">
+            <label for="cus_id" class="form-label text-primary">Customer ID</label>
+            <input type="text" class="form-control" id="cus_id" placeholder="customer Id" name="cus_id">
+        </div>
+        <div class="col-md-6">
+            <label for="office_id" class="form-label text-primary">Office ID</label>
+            <input type="text" class="form-control" id="office_id" placeholder="address" name="office_id">
+        </div>
+        <div class="col-md-6">
+            <label for="end_date" class="form-label text-primary">End Date</label>
+            <input type="date" class="form-control" id="end_date" placeholder="end Date" name="end_date">
+        </div>
+        <div class="col-md-6">
+            <label for="start_date" class="form-label text-primary">Start Date</label>
+            <input type="date" class="form-control" id="start_date" placeholder="start_date" name="start_date">
+        </div>
+        <div class="col-md-6">
+            <label for="car_num" class="form-label text-primary">Car Number</label>
+            <input type="text" class="form-control" id="car_num" placeholder="car_num" name="car_num">
+        </div>
+
+        <hr class="border border-primary border-3 opacity-75">
+
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <table class="table table-dark table-hover">
+                <thead class="bg-danger text-white">
+
+
+                <tr>
+                    <td>ContactId</td>
+                    <td>CustomerId</td>
+                    <td>OfficeId</td>
+                    <td>EndDate</td>
+                    <td>StartDate</td>
+                    <td>CarNumber</td>
+
+                </tr>
+                </thead>
+
+
+                <tbody id="tableContact">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <button type="button" class="btn btn-primary">Primary</button>
+    <button type="button" class="btn btn-success">Success</button>
+    <button type="button" class="btn btn-danger">Danger</button>
+    <button type="button" class="btn btn-warning">Warning</button>
+    <br><br>
+</div>
+<div class="paymentForm">
+    <p class="payment"><dfn id="pay"></dfn>PAYMENT</p>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+            Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#cus">Customer</a></li>
+            <li><a class="dropdown-item" href="#off">Office</a></li>
+            <li><a class="dropdown-item" href="#emp">Employee</a></li>
+            <li><a class="dropdown-item" href="#car">Car</a></li>
+            <li><a class="dropdown-item" href="#con">Contact</a></li>
+            <li><a class="dropdown-item" href="#ins">Insurance</a></li>
+
+        </ul>
+    </div>
+    <br>
+
+    <div class="input row g-3">
+        <div class="col-md-6 ">
+            <label for="payment" class="form-label text-primary">Payment Id</label>
+            <input type="text" class="form-control" id="payment" placeholder="payment" name="payment">
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-6">
+                <label class="form-label text-primary">Customer Id</label>
+                <select class="form-select" aria-label="customer Id" disabled>
+                    <option selected>Customer Id</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="p_cont_id" class="form-label text-primary">Contact ID</label>
+            <input type="text" class="form-control" id="p_cont_id" placeholder="contact" name="p_cont_id">
+        </div>
+        <div class="col-md-6">
+            <label for="total_price" class="form-label text-primary">Total Price</label>
+            <input type="date" class="form-control" id="total_price" placeholder="total_price" name="total_price">
+        </div>
+
+        <hr class="border border-primary border-3 opacity-75">
+
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <table class="table table-dark table-hover">
+                <thead class="bg-danger text-white">
+
+
+                <tr>
+                    <td>Payment</td>
+                    <td>CustomerId</td>
+                    <td>ContactId</td>
+                    <td>TotalPrice</td>
+
+                </tr>
+                </thead>
+
+
+                <tbody id="tablePayment">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <button type="button" class="btn btn-primary">Primary</button>
+    <button type="button" class="btn btn-success">Success</button>
+    <button type="button" class="btn btn-danger">Danger</button>
+    <button type="button" class="btn btn-warning">Warning</button>
+    <br><br>
+</div>
+<div class="insuranceFrame">
+    <p class="insurance"><dfn id="ins"></dfn>INSURANCE</p>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+            Dropdown button
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#cus">Customer</a></li>
+            <li><a class="dropdown-item" href="#off">Office</a></li>
+            <li><a class="dropdown-item" href="#emp">Employee</a></li>
+            <li><a class="dropdown-item" href="#car">Car</a></li>
+            <li><a class="dropdown-item" href="#con">Contact</a></li>
+            <li><a class="dropdown-item" href="#pay">Payment</a></li>
+
+        </ul>
+    </div>
+    <br>
+
+    <div class="input row g-3">
+        <div class="col-md-6 ">
+            <label for="insurance_id" class="form-label text-primary">Insurance ID</label>
+            <input type="text" class="form-control" id="insurance_id" placeholder="insurance_id"
+                   name="insurance_id">
+        </div>
+        <div class="col-md-6">
+            <label for="insurance_type" class="form-label text-primary">Insurance_Type</label>
+            <input type="text" class="form-control" id="insurance_type" placeholder="insurance_type"
+                   name="insurance_type">
+        </div>
+
+        <hr class="border border-primary border-3 opacity-75">
+
+    </div>
+    <div class="row">
+        <div class="col">
+
+            <table class="table table-dark table-hover">
+                <thead class="bg-danger text-white">
+
+
+                <tr>
+                    <td>Insurance Id</td>
+                    <td>Insurance Type</td>
+
+                </tr>
+                </thead>
+
+
+                <tbody id="tableInsurance">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <button type="button" class="btn btn-primary">Primary</button>
+    <button type="button" class="btn btn-success">Success</button>
+    <button type="button" class="btn btn-danger">Danger</button>
+    <button type="button" class="btn btn-warning">Warning</button>
+    <br><br>
+
+</div>
+</div>
+<div class="shadow p-3 mb-5 bg-body rounded ">Types of cars currently available <i class="fa-solid fa-car-rear"></i>
+</div>
+
+<div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="assets/img/logo1.jpg" class="d-block w-75" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="assets/img/logo2.jpg" class="d-block w-75" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="assets/img/logo3.jpg" class="d-block w-75" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="assets/img/logo5.jpg" class="d-block w-75" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="assets/img/logo6.jpg" class="d-block w-75" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="assets/img/logo7.jpg" class="d-block w-75" alt="...">
+        </div>
+        <!-- <div class="carousel-item">
+             <img src="assets/img/logo8.jpg" class="d-block w-75" alt="...">
+         </div>-->
+    </div>
+    <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleControlsNoTouching"
+            data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next btn btn-light" type="button"
+            data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
 </body>
 </html>
