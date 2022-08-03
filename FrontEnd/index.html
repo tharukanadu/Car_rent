@@ -713,7 +713,462 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/bootstrap/css/bootstrap.min.css"></script>
+
+<script>
+    //customer
+    //search
+    $("#customerId").on("keypress", function (e) {
+        if (e.key == "Enter") {
+            var customerID = $("#customerId").val();
+
+            $.ajax({
+                url: "http://localhost:8080/15_car_war_exploded/customer" + customerID,
+                method: "GET",
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        }
+    });
+    /*GETALL*/
+    loadAllCustomer();
+
+    function loadAllCustomer() {
+        $("#tableCustomer").empty();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/customer",
+            method: "GET",
+            success: function (resp) {
+                console.log(resp);
+                for (const customer of resp) {
+                    let row = `<tr><td>${customer.cus_id}</td></tr><tr><td>${customer.cus_name}</td></tr><tr><td>${customer.cus_address}</td></tr><tr><td>${customer.phoneNumber}</td></tr><tr><td>${customer.gender}</td></tr>`
+                    $("#tableCustomer").append(row);
+                }
+                bindClickEvent();
+            }
+        });
+    }
+
+    $("#cusGetAllbtn").click(function () {
+        loadAllCustomer();
+    });
+    /*save*/
+    const baseCustomer = "http://localhost:8080/15_car_war_exploded/customer";
+    $(".saveCustomer").click(function () {
+        alert("save");
+        saveCustomer();
+    });
+
+    function saveCustomer() {
+        alert("helloo");
+        var data = $("#customerForm").serialize();
+        console.log(data);
+        $.ajax({
+            url: baseCustomer,
+            method: "POST",
+            data: data,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Save");
+                }
+
+                /!*  alert(res);
+                loadAllCustomer();
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
+            }
+        });
+    }
+
+    $("#cusDeleteBtn").click(function () {
+        let customerId = $("#customerId").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/customer?id=" + customerId,
+
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
+
+    $("#cusUpdateBtn").click(function () {
+
+        var cusOb = {
+            id: $("#customerId").val(),
+            name: $("#customerName").val(),
+            address: $("#customerAddress").val(),
+            phoneNumber: $("#phoneNumber").val(),
+            sex: $("#sex").val()
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/customer",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(cusOb),
+            success: function (res) {
+                console.log(res)
+                /* alert(res);
+                 loadAllCustomers();*/
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
+            }
+        });
+    });
+
+    function bindClickEvent() {
+        $("#tableCustomer>tr").click(function () {
+            let customerId = $(this).children().eq(0).text();
+            let customerName = $(this).children().eq(1).text();
+            let customerAddress = $(this).children().eq(2).text();
+            let phoneNumber = $(this).children().eq(3).text();
+            let sex = $(this).children().eq(4).text();
 
 
-</body>
+            $("#customerId").val(customerId);
+            $("#customerName").val(customerName);
+            $("#customerAddress").val(customerAddress);
+            $("#phoneNumber").val(phoneNumber);
+            $("#sex").val(sex);
+
+        });
+    }
+
+    /*office*/
+    //search
+    $("#officeId").on("keypress", function (e) {
+        if (e.key == "Enter") {
+            var officeID = $("#officeId").val();
+
+            $.ajax({
+                url: "http://localhost:8080/15_car_war_exploded/office" + officeID,
+                method: "GET",
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        }
+    });
+
+    /*GETALL*/
+    function loadAllOffice() {
+        $("#tableOffice").empty();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/office",
+            method: "GET",
+            success: function (resp) {
+                console.log(resp);
+                for (const office of resp) {
+                    let row = `<tr><td>${office.officeId}</td></tr><tr><td>${office.officeName}</td></tr><tr><td>${office.officeAddress}</td></tr><tr><td>${office.manager}</td></tr>`
+                    $("#tableOffice").append(row);
+                }
+                bindClickEvent2();
+            }
+        });
+    }
+
+    $("#officeGetAllbtn").click(function () {
+        loadAllOffice();
+    });
+    /*save*/
+    $("#officeSavebtn").click(function () {
+        var data = $("#officeForm").serialize();
+        console.log(data);
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/office",
+            method: "POST",
+            data: data,
+            success: function (res) {
+                console.log(res)
+                /*  alert(res);
+                  loadAllCustomer();*/
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
+            }
+        });
+    });
+    $("#officeDeletebtn").click(function () {
+        let officeId = $("#officeId").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/office?id=" + officeId,
+
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
+
+    $("#officeUpdatebtn").click(function () {
+
+        var cusOb = {
+            officeId: $("#officeId").val(),
+            officeName: $("#officeName").val(),
+            officeAddress: $("#officeAddress").val(),
+            manager: $("#manager").val()
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/office",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(cusOb),
+            success: function (res) {
+                console.log(res)
+                /* alert(res);
+                 loadAllCustomers();*/
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
+            }
+        });
+    });
+
+    function bindClickEvent2() {
+        $("#tableOffice>tr").click(function () {
+            let officeId = $(this).children().eq(0).text();
+            let officeName = $(this).children().eq(1).text();
+            let officeAddress = $(this).children().eq(2).text();
+            let manager = $(this).children().eq(3).text();
+
+
+            $("#officeId").val(officeId);
+            $("#officeName").val(officeName);
+            $("#officeAddress").val(officeAddress);
+            $("#manager").val(manager);
+
+        });
+    }
+
+    /*car*/
+    //search
+    $("#carId").on("keypress", function (e) {
+        if (e.key == "Enter") {
+            var carID = $("#carId").val();
+
+            $.ajax({
+                url: "http://localhost:8080/15_car_war_exploded/car" + carID,
+                method: "GET",
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        }
+    });
+
+    /*GETALL*/
+    function loadAllCar() {
+        $("#tableCar").empty();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/car",
+            method: "GET",
+            success: function (resp) {
+                console.log(resp);
+                for (const car of resp) {
+                    let row = `<tr><td>${car.carId}</td></tr><tr><td>${car.carType}</td></tr><tr><td>${car.carColor}</td></tr><tr><td>${car.rentPrice}</td></tr><tr><td>${car.insurance_num}</td></tr>`
+                    $("#tableCar").append(row);
+                }
+                bindClickEvent3();
+            }
+        });
+    }
+
+    $("#carGetAllBtn").click(function () {
+        loadAllCar();
+    });
+    /*save*/
+    $("#carSaveBtn").click(function () {
+        var data = $("#carForm").serialize();
+        console.log(data);
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/car",
+            method: "POST",
+            data: data,
+            success: function (res) {
+                console.log(res)
+                /*  alert(res);
+                  loadAllCustomer();*/
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
+            }
+        });
+    });
+    $("#carDeleteBtn").click(function () {
+        let carId = $("#carId").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/car?id=" + carId,
+
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
+
+    $("#carUpdateBtn").click(function () {
+
+        var carOb = {
+            carId: $("#carId").val(),
+            carType: $("#carType").val(),
+            carColor: $("#carColor").val(),
+            rentPrice: $("#rentPrice").val(),
+            insurance_num: $("#insurance_num").val()
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/car",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(carOb),
+            success: function (res) {
+                console.log(res)
+                /* alert(res);
+                 loadAllCustomers();*/
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
+            }
+        });
+    });
+
+    function bindClickEvent3() {
+        $("#tableCar>tr").click(function () {
+            let carId = $(this).children().eq(0).text();
+            let carType = $(this).children().eq(1).text();
+            let carColor = $(this).children().eq(2).text();
+            let rentPrice = $(this).children().eq(3).text();
+            let insurance_num = $(this).children().eq(3).text();
+
+
+            $("#carId").val(carId);
+            $("#carType").val(carType);
+            $("#carColor").val(carColor);
+            $("#rentPrice").val(rentPrice);
+            $("#insurance_num").val(insurance_num);
+        });
+    }
+
+    /*car*/
+    //search
+    $("#emp_id").on("keypress", function (e) {
+        if (e.key == "Enter") {
+            var empID = $("#emp_id").val();
+
+            $.ajax({
+                url: "http://localhost:8080/15_car_war_exploded/employee" + empID,
+                method: "GET",
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        }
+    });
+
+    /*GETALL*/
+    function loadAllCar() {
+        $("#tableCar").empty();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/car",
+            method: "GET",
+            success: function (resp) {
+                console.log(resp);
+                for (const car of resp) {
+                    let row = `<tr><td>${car.carId}</td></tr><tr><td>${car.carType}</td></tr><tr><td>${car.carColor}</td></tr><tr><td>${car.rentPrice}</td></tr><tr><td>${car.insurance_num}</td></tr>`
+                    $("#tableCar").append(row);
+                }
+                bindClickEvent3();
+            }
+        });
+    }
+
+    $("#carGetAllBtn").click(function () {
+        loadAllCar();
+    });
+    /*save*/
+    $("#carSaveBtn").click(function () {
+        var data = $("#carForm").serialize();
+        console.log(data);
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/car",
+            method: "POST",
+            data: data,
+            success: function (res) {
+                console.log(res)
+                /*  alert(res);
+                  loadAllCustomer();*/
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
+            }
+        });
+    });
+    $("#carDeleteBtn").click(function () {
+        let carId = $("#carId").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/car?id=" + carId,
+
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
+
+    $("#carUpdateBtn").click(function () {
+
+        var carOb = {
+            carId: $("#carId").val(),
+            carType: $("#carType").val(),
+            carColor: $("#carColor").val(),
+            rentPrice: $("#rentPrice").val(),
+            insurance_num: $("#insurance_num").val()
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/car",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(carOb),
+            success: function (res) {
+                console.log(res)
+                /* alert(res);
+                 loadAllCustomers();*/
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
+            }
+        });
+    });
+
+    function bindClickEvent3() {
+        $("#tableCar>tr").click(function () {
+            let carId = $(this).children().eq(0).text();
+            let carType = $(this).children().eq(1).text();
+            let carColor = $(this).children().eq(2).text();
+            let rentPrice = $(this).children().eq(3).text();
+            let insurance_num = $(this).children().eq(3).text();
+
+
+            $("#carId").val(carId);
+            $("#carType").val(carType);
+            $("#carColor").val(carColor);
+            $("#rentPrice").val(rentPrice);
+            $("#insurance_num").val(insurance_num);
+        });
+    }
+
+</script>
+
+    </body>
 </html>
