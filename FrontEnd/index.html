@@ -137,7 +137,7 @@
                     <input type="text" class="form-control" id="sex" placeholder="gender" name="gender">
                 </div>
                 <div>
-                    <button type="button" class="saveCustomer btn btn-primary" id="saveCustomer">Save</button>
+                    <button type="button" class="saveCustomer btn btn-primary" id="saveCustomerbtn">Save</button>
                     <button type="button" class="btn btn-success" id="cusGetAllbtn">GetAll</button>
                     <button type="button" class="btn btn-danger" id="cusDeleteBtn">Delete</button>
                     <button type="button" class="btn btn-warning" id="cusUpdateBtn">Update</button>
@@ -280,9 +280,9 @@
                 <label class="form-label text-primary">Car Type</label>
                 <select class="form-select" aria-label="Car Type"  name="car_type">
                     <option selected>Car Type</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="Luxury Car">Luxury Car</option>
+                    <option value="Premium Car">Premium Car</option>
+                    <option value="General Car">General Car</option>
                 </select>
             </div>
             <div class="col-md-6">
@@ -401,7 +401,7 @@
                 <input type="text" class="form-control" id="emp_name" placeholder="name" name="emp_name">
             </div>
             <div class="col-md-6">
-                <label for="emp_address" class="form-label text-primary">Car Color</label>
+                <label for="emp_address" class="form-label text-primary">Employee Address</label>
                 <input type="text" class="form-control" id="emp_address" placeholder="address" name="address">
             </div>
             <div class="col-md-6">
@@ -413,6 +413,10 @@
                 <label for="salary" class="form-label text-primary">Salary</label>
                 <input type="text" class="form-control" id="salary" placeholder="salary" name="salary">
             </div>
+            <button type="button" class="btn btn-primary" id="employeeSaveBtn">Save</button>
+            <button type="button" class="btn btn-success" id="employeeGetAllBtn">GetAll</button>
+            <button type="button" class="btn btn-danger" id="employeeDeleteBtn">Delete</button>
+            <button type="button" class="btn btn-warning" id="employeeUpdateBtn">Update</button>
         </form>
         <hr class="border border-primary border-3 opacity-75">
 
@@ -442,11 +446,6 @@
         </div>
     </div>
 
-
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-success">Success</button>
-    <button type="button" class="btn btn-danger">Danger</button>
-    <button type="button" class="btn btn-warning">Warning</button>
     <br><br>
 </div>
 
@@ -724,31 +723,48 @@
     const basec1 = "http://localhost:8080/15_car_war_exploded/customer";
     loadallcustome();
 
-    $("#saveCustomer").click(function () {
-        saveCustomer();
-        loadallcustome();
+    //search
+    $("#customerId").on("keypress", function (e) {
+        if (e.key == "Enter") {
+            var customerID = $("#customerId").val();
+
+            $.ajax({
+                url: "http://localhost:8080/15_car_war_exploded/customer" + customerID,
+                method: "GET",
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        }
     });
-    $("#cusDeleteBtn1").click(function () {
-        deletecustomer();
-        loadallcustome();
+
+    /!*save*!/
+    const baseCustomer = "http://localhost:8080/15_car_war_exploded/customer";
+    $("#saveCustomerbtn").click(function () {
+        saveCustomer();
     });
 
     function saveCustomer() {
-        var data = $("#customerForme").serialize(); // return query string of form with name:type-value
+        var data = $("#customerForm").serialize();
+        console.log(data);
         $.ajax({
-            url: basec1,
+            url: baseCustomer,
             method: "POST",
             data: data,
             success: function (res) {
                 if (res.code == 200) {
-                    alert("Successfully Customer Registered");
+                    alert("Save");
                 }
+
+                loadallcustome();
             },
-            error: function (ob) {
-                alert(ob.responseJSON.message);
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
             }
         });
     }
+
 
     function loadallcustome() {
         $("#tableCustomer").empty();
@@ -768,6 +784,17 @@
             }
         });
     }
+    $("#cusDeleteBtn").click(function () {
+        let customerId = $("#customerId").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/customer?id=" + customerId,
+
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
 
 
     /*office*/
@@ -789,6 +816,32 @@
             error: function (ob) {
                 alert(ob.responseJSON.message);
 
+            }
+        });
+    }
+    /!*save*!/
+    const baseOffice = "http://localhost:8080/15_car_war_exploded/office";
+    $("#officeSavebtn").click(function () {
+        saveOffice();
+    });
+
+    function saveOffice() {
+        var data = $("#officeForm").serialize();
+        console.log(data);
+        $.ajax({
+            url: baseOffice,
+            method: "POST",
+            data: data,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Save");
+                }
+
+                loadalloffice();
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
             }
         });
     }
@@ -817,6 +870,34 @@
         });
     }
 
+    /!*save*!/
+    const baseCar = "http://localhost:8080/15_car_war_exploded/car";
+    $("#carSaveBtn").click(function () {
+        saveCar();
+    });
+
+    function saveCar() {
+        var data = $("#carForm").serialize();
+        console.log(data);
+        $.ajax({
+            url: baseCar,
+            method: "POST",
+            data: data,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Save");
+                }
+
+                loadAllCar();
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
+            }
+        });
+    }
+
+
     /*employee*/
     const basec4 = "http://localhost:8080/15_car_war_exploded/employee";
     loadAllEmployee();
@@ -839,6 +920,33 @@
             }
         });
     }
+    /!*save*!/
+    const baseEmployee = "http://localhost:8080/15_car_war_exploded/employee";
+    $("#employeeSaveBtn").click(function () {
+        saveEmployee();
+    });
+
+    function saveEmployee() {
+        var data = $("#employeeForm").serialize();
+        console.log(data);
+        $.ajax({
+            url: baseEmployee,
+            method: "POST",
+            data: data,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Save Employee");
+                }
+
+                loadAllEmployee();
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
+            }
+        });
+    }
+
 
     /*contact*/
     const basec5 = "http://localhost:8080/15_car_war_exploded/contact";
