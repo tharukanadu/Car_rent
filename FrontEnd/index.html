@@ -134,7 +134,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="sex" class="form-label text-primary">Sex</label>
-                    <input type="text" class="form-control" id="sex" placeholder="sex" name="gender">
+                    <input type="text" class="form-control" id="sex" placeholder="gender" name="gender">
                 </div>
                 <div>
                     <button type="button" class="saveCustomer btn btn-primary" id="saveCustomer">Save</button>
@@ -204,7 +204,7 @@
             </div>
             <div class="col-md-6">
                 <label for="officeAddress" class="form-label text-primary">Address</label>
-                <input type="text" class="form-control" id="officeAddress" placeholder="address"
+                <input type="text" class="form-control" id="officeAddress" placeholder="officeaddress"
                        name="officeAddress">
             </div>
             <div class="col-md-6">
@@ -406,12 +406,12 @@
             </div>
             <div class="col-md-6">
                 <label for="emp_officeId" class="form-label text-primary">Office ID</label>
-                <input type="text" class="form-control" id="emp_officeId" placeholder="officeId"
+                <input type="text" class="form-control" id="emp_officeId" placeholder="emp_officeId"
                        name="emp_officeId">
             </div>
             <div class="col-md-6">
                 <label for="salary" class="form-label text-primary">Salary</label>
-                <input type="text" class="form-control" id="salary" placeholder="salary" name="salary">
+                <input type="text" class="form-control" id="salary" placeholder="salary" name="emp_salary">
             </div>
         </form>
         <hr class="border border-primary border-3 opacity-75">
@@ -713,10 +713,186 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+
+<button id="hello">helloBtn</button>
 <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="assets/bootstrap/css/bootstrap.min.css"></script>
+<script src="assets/jQuery/jquery-3.6.0.min.js"></script>
 
 <script>
+
+    const basec1 = "http://localhost:8080/15_car_war_exploded/customer";
+    loadallcustome();
+
+    $("#saveCustomer").click(function () {
+        saveCustomer();
+        loadallcustome();
+    });
+    $("#cusDeleteBtn1").click(function () {
+        deletecustomer();
+        loadallcustome();
+    });
+
+    function saveCustomer() {
+        var data = $("#customerForme").serialize(); // return query string of form with name:type-value
+        $.ajax({
+            url: basec1,
+            method: "POST",
+            data: data,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Successfully Customer Registered");
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    function loadallcustome() {
+        $("#tableCustomer").empty();
+        $.ajax({
+            url: basec1,
+            method: "GET",
+            success: function (resp) {
+                for (const cus of resp.data) {
+                    console.log(resp.data);
+                    let row = `<tr><td>${cus.cus_id}</td><td>${cus.cus_name}</td><td>${cus.cus_address}</td><td>${cus.phone_number}</td><td>${cus.gender}</td></tr>`;
+                    $("#tableCustomer").append(row);
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+
+            }
+        });
+    }
+
+
+    /*office*/
+    const basec2 = "http://localhost:8080/15_car_war_exploded/office";
+    loadalloffice();
+
+    function loadalloffice() {
+        $("#tableOffice").empty();
+        $.ajax({
+            url: basec2,
+            method: "GET",
+            success: function (resp) {
+                for (const office of resp.data) {
+                    console.log(resp.data);
+                    let row = `<tr><td>${office.officeId}</td></tr><tr><td>${office.officeName}</td></tr><tr><td>${office.officeAddress}</td></tr><tr><td>${office.manager}</td></tr>`
+                    $("#tableOffice").append(row);
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+
+            }
+        });
+    }
+
+
+    /*Car*/
+    const basec3 = "http://localhost:8080/15_car_war_exploded/car";
+    loadAllCar();
+
+    function loadAllCar() {
+        $("#tableCar").empty();
+        $.ajax({
+            url: basec3,
+            method: "GET",
+            success: function (resp) {
+                for (const car of resp.data) {
+                    console.log(resp.data);
+                    let row = `<tr><td>${car.carId}</td><td>${car.cus_name}</td><td>${car.carColor}</td><td>${car.rentPrice}</td><td>${car.insurance_num}</td></tr>`;
+                    $("#tableCar").append(row);
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+
+            }
+        });
+    }
+
+    /*employee*/
+    const basec4 = "http://localhost:8080/15_car_war_exploded/employee";
+    loadAllEmployee();
+
+    function loadAllEmployee() {
+        $("#tableEmployee").empty();
+        $.ajax({
+            url: basec4,
+            method: "GET",
+            success: function (resp) {
+                for (const emp of resp.data) {
+                    console.log(resp.data);
+                    let row = `<tr><td>${emp.emp_id}</td><td>${emp.emp_name}</td><td>${emp.emp_address}</td><td>${emp.emp_officeId}</td><td>${emp.emp_salary}</td></tr>`;
+                    $("#tableEmployee").append(row);
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+
+            }
+        });
+    }
+
+
+
+
+    /*    $("#saveCustomer").click(function (){
+            const baseUrl="http://localhost:8080/15_car_war_exploded/customer";
+            tharukaCustomer();
+
+
+           alert("hello");
+        });
+        function tharukaCustomer() {
+            var data = $("#customerForme").serialize(); // return query string of form with name:type-value
+            $.ajax({
+                url: basec1,
+                method: "POST",
+                data: data,
+                success: function (res) {
+                    if (res.code == 200) {
+                        alert("Successfully Customer Registered");
+                    }
+                },
+                error: function (ob) {
+                    alert(ob.responseJSON.message);
+                }
+            });
+        }*/
+/**************************************************************/
+   /* function saveCustomer() {
+        alert("helloo");
+        var data = $("#customerForm").serialize();
+        console.log(data);
+        $.ajax({
+            url: baseCustomer,
+            method: "POST",
+            data: data,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Save");
+                }
+
+                /!*  alert(res);
+                loadAllCustomer();
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
+            }
+        });
+    }*/
+    ///////////////////////////////////
+ /*   $("#hello").click(function (){
+       alert("hello")
+    });
     //customer
     //search
     $("#customerId").on("keypress", function (e) {
@@ -732,7 +908,7 @@
             });
         }
     });
-    /*GETALL*/
+    /!*GETALL*!/
     loadAllCustomer();
 
     function loadAllCustomer() {
@@ -752,11 +928,12 @@
     }
 
     $("#cusGetAllbtn").click(function () {
+        console.log("hello");
         loadAllCustomer();
     });
-    /*save*/
+    /!*save*!/
     const baseCustomer = "http://localhost:8080/15_car_war_exploded/customer";
-    $(".saveCustomer").click(function () {
+    $("#saveCustomer").click(function () {
         alert("save");
         saveCustomer();
     });
@@ -813,8 +990,8 @@
             data: JSON.stringify(cusOb),
             success: function (res) {
                 console.log(res)
-                /* alert(res);
-                 loadAllCustomers();*/
+                /!* alert(res);
+                 loadAllCustomers();*!/
             },
             error: function (ob, errorStus) {
                 console.log(ob);
@@ -840,7 +1017,7 @@
         });
     }
 
-    /*office*/
+    /!*office*!/
     //search
     $("#officeId").on("keypress", function (e) {
         if (e.key == "Enter") {
@@ -856,7 +1033,7 @@
         }
     });
 
-    /*GETALL*/
+    /!*GETALL*!/
     function loadAllOffice() {
         $("#tableOffice").empty();
         $.ajax({
@@ -876,7 +1053,7 @@
     $("#officeGetAllbtn").click(function () {
         loadAllOffice();
     });
-    /*save*/
+    /!*save*!/
     $("#officeSavebtn").click(function () {
         var data = $("#officeForm").serialize();
         console.log(data);
@@ -886,8 +1063,8 @@
             data: data,
             success: function (res) {
                 console.log(res)
-                /*  alert(res);
-                  loadAllCustomer();*/
+                /!*  alert(res);
+                  loadAllCustomer();*!/
             },
             error: function (ob, textStatus, error) {
                 alert(textStatus);
@@ -923,8 +1100,8 @@
             data: JSON.stringify(cusOb),
             success: function (res) {
                 console.log(res)
-                /* alert(res);
-                 loadAllCustomers();*/
+                /!* alert(res);
+                 loadAllCustomers();*!/
             },
             error: function (ob, errorStus) {
                 console.log(ob);
@@ -948,7 +1125,7 @@
         });
     }
 
-    /*car*/
+    /!*car*!/
     //search
     $("#carId").on("keypress", function (e) {
         if (e.key == "Enter") {
@@ -964,7 +1141,7 @@
         }
     });
 
-    /*GETALL*/
+    /!*GETALL*!/
     function loadAllCar() {
         $("#tableCar").empty();
         $.ajax({
@@ -984,7 +1161,7 @@
     $("#carGetAllBtn").click(function () {
         loadAllCar();
     });
-    /*save*/
+    /!*save*!/
     $("#carSaveBtn").click(function () {
         var data = $("#carForm").serialize();
         console.log(data);
@@ -994,8 +1171,8 @@
             data: data,
             success: function (res) {
                 console.log(res)
-                /*  alert(res);
-                  loadAllCustomer();*/
+                /!*  alert(res);
+                  loadAllCustomer();*!/
             },
             error: function (ob, textStatus, error) {
                 alert(textStatus);
@@ -1032,8 +1209,8 @@
             data: JSON.stringify(carOb),
             success: function (res) {
                 console.log(res)
-                /* alert(res);
-                 loadAllCustomers();*/
+                /!* alert(res);
+                 loadAllCustomers();*!/
             },
             error: function (ob, errorStus) {
                 console.log(ob);
@@ -1058,7 +1235,7 @@
         });
     }
 
-    /*car*/
+    /!*car*!/
     //search
     $("#emp_id").on("keypress", function (e) {
         if (e.key == "Enter") {
@@ -1074,7 +1251,7 @@
         }
     });
 
-    /*GETALL*/
+    /!*GETALL*!/
     function loadAllCar() {
         $("#tableCar").empty();
         $.ajax({
@@ -1094,7 +1271,7 @@
     $("#carGetAllBtn").click(function () {
         loadAllCar();
     });
-    /*save*/
+    /!*save*!/
     $("#carSaveBtn").click(function () {
         var data = $("#carForm").serialize();
         console.log(data);
@@ -1104,8 +1281,8 @@
             data: data,
             success: function (res) {
                 console.log(res)
-                /*  alert(res);
-                  loadAllCustomer();*/
+                /!*  alert(res);
+                  loadAllCustomer();*!/
             },
             error: function (ob, textStatus, error) {
                 alert(textStatus);
@@ -1142,8 +1319,8 @@
             data: JSON.stringify(carOb),
             success: function (res) {
                 console.log(res)
-                /* alert(res);
-                 loadAllCustomers();*/
+                /!* alert(res);
+                 loadAllCustomers();*!/
             },
             error: function (ob, errorStus) {
                 console.log(ob);
@@ -1167,7 +1344,7 @@
             $("#insurance_num").val(insurance_num);
         });
     }
-
+*/
 </script>
 
     </body>
