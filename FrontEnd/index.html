@@ -726,10 +726,10 @@
     //search
     $("#customerId").on("keypress", function (e) {
         if (e.key == "Enter") {
-            var customerID = $("#customerId").val();
+            var cus_id = $("#customerId").val();
 
             $.ajax({
-                url: "http://localhost:8080/15_car_war_exploded/customer" + customerID,
+                url: "http://localhost:8080/15_car_war_exploded/customer" + cus_id,
                 method: "GET",
                 success: function (res) {
                     console.log(res);
@@ -796,6 +796,33 @@
         });
     });
 
+   /* update*/
+    $("#cusUpdateBtn").click(function () {
+
+        var cusOb = {
+            id: $("#customerId").val(),
+            name: $("#customerName").val(),
+            address: $("#customerAddress").val(),
+            phoneNumber: $("#phoneNumber").val(),
+            sex: $("#sex").val()
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/customer",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(cusOb),
+            success: function (res) {
+                console.log(res)
+
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
+            }
+        });
+    });
+
+
 
     /*office*/
     const basec2 = "http://localhost:8080/15_car_war_exploded/office";
@@ -845,8 +872,29 @@
             }
         });
     }
+/*update*/
+    $("#officeUpdatebtn").click(function () {
 
+        var cusOb = {
+            officeId: $("#officeId").val(),
+            officeName: $("#officeName").val(),
+            officeAddress: $("#officeAddress").val(),
+            manager: $("#manager").val()
+        }
 
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/office",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(cusOb),
+            success: function (res) {
+                console.log(res)
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
+            }
+        });
+    });
     /*Car*/
     const basec3 = "http://localhost:8080/15_car_war_exploded/car";
     loadAllCar();
