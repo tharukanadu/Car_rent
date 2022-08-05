@@ -55,7 +55,7 @@ public class CustomerController {
       customerService.saveCustomer(customer);
       return new ResponseUtil(200,"ok",null);
     }
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseUtil updateCustomer(@RequestBody CustomerDTO customer){
       customerService.updateCustomer(customer);
       return new ResponseUtil(200,"ok",null);

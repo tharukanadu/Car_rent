@@ -724,19 +724,21 @@
     loadallcustome();
 
     //search
-    $("#customerId").on("keypress", function (e) {
-        if (e.key == "Enter") {
-            var cus_id = $("#customerId").val();
 
-            $.ajax({
-                url: "http://localhost:8080/15_car_war_exploded/customer" + cus_id,
-                method: "GET",
-                success: function (res) {
-                    console.log(res);
-                }
-            });
-        }
+    $("#customerId").on("keypress",function (e){
+       if (e.key=="Enter"){
+           var customerId = $("#customerId").val();
+
+           $.ajax({
+               url:"http://localhost:8080/15_car_war_exploded/customer/"+customerId,
+               method:"GET",
+               success:function (res){
+                   console.log(res);
+               }
+           })
+       }
     });
+
 
     /!*save*!/
     const baseCustomer = "http://localhost:8080/15_car_war_exploded/customer";
@@ -784,10 +786,11 @@
             }
         });
     }
+    /*delete*/
     $("#cusDeleteBtn").click(function () {
         let customerId = $("#customerId").val();
         $.ajax({
-            url: "http://localhost:8080/15_car_war_exploded/customer?id=" + customerId,
+            url: "http://localhost:8080/15_car_war_exploded/customer?cus_id=" + customerId,
 
             method: "DELETE",
             success: function (res) {
