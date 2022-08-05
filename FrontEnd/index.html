@@ -468,6 +468,7 @@
     <br>
 
     <div class="input row g-3">
+        <form id="contactForm">
         <div class="col-md-6 ">
             <label for="cont_id" class="form-label text-primary">CONTACT ID</label>
             <input type="text" class="form-control" id="cont_id" placeholder="id" name="cont_id">
@@ -492,7 +493,11 @@
             <label for="car_num" class="form-label text-primary">Car Number</label>
             <input type="text" class="form-control" id="car_num" placeholder="car_num" name="car_num">
         </div>
-
+            <button type="button" class="btn btn-primary"id="contactSaveBtn">Save</button>
+            <button type="button" class="btn btn-success" id="contactGetAllBtn">GetAll</button>
+            <button type="button" class="btn btn-danger" id="contactDeleteBtn">Delete</button>
+            <button type="button" class="btn btn-warning" id="contactUpdateBtn">Update</button>
+        </form>
         <hr class="border border-primary border-3 opacity-75">
 
     </div>
@@ -522,11 +527,6 @@
         </div>
     </div>
 
-
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-success">Success</button>
-    <button type="button" class="btn btn-danger">Danger</button>
-    <button type="button" class="btn btn-warning">Warning</button>
     <br><br>
 </div>
 <div class="paymentForm">
@@ -550,6 +550,7 @@
     <br>
 
     <div class="input row g-3">
+        <form id="paymentForm">
         <div class="col-md-6 ">
             <label for="payment" class="form-label text-primary">Payment Id</label>
             <input type="text" class="form-control" id="payment" placeholder="payment" name="payment">
@@ -557,7 +558,7 @@
         <div class="col-md-6">
             <div class="col-md-6">
                 <label class="form-label text-primary">Customer Id</label>
-                <select class="form-select" aria-label="customer Id" disabled name="cus_id">
+                <select class="form-select" aria-label="customer Id"  name="cus_id">
                     <option selected>Customer Id</option>
                     <option value="1">Luxury Car</option>
                     <option value="2">Premium Car</option>
@@ -573,7 +574,11 @@
             <label for="total_price" class="form-label text-primary">Total Price</label>
             <input type="date" class="form-control" id="total_price" placeholder="total_price" name="total_price">
         </div>
-
+            <button type="button" class="btn btn-primary" id="paymentSaveBtn">Save</button>
+            <button type="button" class="btn btn-success" id="paymentGetAllBtn">GetAll</button>
+            <button type="button" class="btn btn-danger" id="paymentDeleteBtn">Delete</button>
+            <button type="button" class="btn btn-warning" id="paymentUpdateBtn">Update</button>
+        </form>
         <hr class="border border-primary border-3 opacity-75">
 
     </div>
@@ -601,11 +606,6 @@
         </div>
     </div>
 
-
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-success">Success</button>
-    <button type="button" class="btn btn-danger">Danger</button>
-    <button type="button" class="btn btn-warning">Warning</button>
     <br><br>
 </div>
 <div class="insuranceFrame">
@@ -629,6 +629,7 @@
     <br>
 
     <div class="input row g-3">
+        <form id="insuranceForm">
         <div class="col-md-6 ">
             <label for="insurance_id" class="form-label text-primary">Insurance ID</label>
             <input type="text" class="form-control" id="insurance_id" placeholder="insurance_id"
@@ -639,7 +640,11 @@
             <input type="text" class="form-control" id="insurance_type" placeholder="insurance_type"
                    name="insurance_type">
         </div>
-
+            <button type="button" class="btn btn-primary" id="insuranceSaveBtn">Save</button>
+            <button type="button" class="btn btn-success" id="insuranceGetAllBtn">GetAll</button>
+            <button type="button" class="btn btn-danger" id="insuranceDeleteBtn">Delete</button>
+            <button type="button" class="btn btn-warning" id="insuranceUpdateBtn">Update</button>
+        </form>
         <hr class="border border-primary border-3 opacity-75">
 
     </div>
@@ -665,11 +670,6 @@
         </div>
     </div>
 
-
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-success">Success</button>
-    <button type="button" class="btn btn-danger">Danger</button>
-    <button type="button" class="btn btn-warning">Warning</button>
     <br><br>
 
 </div>
@@ -898,6 +898,19 @@
             }
         });
     });
+    /*delete*/
+    $("#officeDeletebtn").click(function () {
+        let officeId = $("#officeId").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/office?office_id=" + officeId,
+
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
+
     /*Car*/
     const basec3 = "http://localhost:8080/15_car_war_exploded/car";
     loadAllCar();
@@ -947,6 +960,18 @@
             }
         });
     }
+    /*car*/
+    $("#carDeleteBtn").click(function () {
+        let carId = $("#carId").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/car?car_id=" + carId,
+
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
 
 
     /*employee*/
@@ -997,7 +1022,18 @@
             }
         });
     }
+    /*delete*/
+    $("#employeeDeleteBtn").click(function () {
+        let empId = $("#emp_id").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/employee?emp_id=" + empId,
 
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
 
     /*contact*/
     const basec5 = "http://localhost:8080/15_car_war_exploded/contact";
@@ -1021,6 +1057,18 @@
             }
         });
     }
+    /*delete*/
+    $("#contactDeleteBtn").click(function () {
+        let conId = $("#cont_id").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/contact?cont_id=" + conId,
+
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
 
 
     /*insurance*/
@@ -1045,6 +1093,29 @@
             }
         });
     }
+    $("#ins").click(function () {
+        let conId = $("#cont_id").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/contact?cont_id=" + conId,
+
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
+    /*delete*/
+    $("#insuranceDeleteBtn").click(function () {
+        let ins_Id = $("#insurance_id").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/insurance?insurance_id=" + ins_Id,
+
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
 
     /*Payment*/
     const basec7 = "http://localhost:8080/15_car_war_exploded/payment";
@@ -1069,7 +1140,18 @@
         });
     }
 
+    /*delete*/
+    $("#paymentDeleteBtn").click(function () {
+        let pay = $("#payment").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/payment?payment=" + pay,
 
+            method: "DELETE",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
 
     /*    $("#saveCustomer").click(function (){
             const baseUrl="http://localhost:8080/15_car_war_exploded/customer";

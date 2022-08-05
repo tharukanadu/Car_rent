@@ -33,7 +33,7 @@ public class CarController {
 
     }
     @DeleteMapping(params = "{car_id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil deleteCustomer(@RequestParam String car_id){
+    public ResponseUtil deleteCar(@RequestParam String car_id){
         carService.deleteCar(car_id);
         return new ResponseUtil(200,"Save",null);
     }
