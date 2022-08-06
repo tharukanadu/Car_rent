@@ -32,9 +32,9 @@ public class CarController {
         return new ResponseUtil(200,"Save",null);
 
     }
-    @DeleteMapping(params = "{car_id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil deleteCar(@RequestParam String car_id){
-        carService.deleteCar(car_id);
+    @DeleteMapping(params = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteCar(@RequestParam String id){
+        carService.deleteCar(id);
         return new ResponseUtil(200,"Save",null);
     }
     @GetMapping(path = "/{car_id}",produces = MediaType.APPLICATION_JSON_VALUE)

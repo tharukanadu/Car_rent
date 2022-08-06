@@ -278,7 +278,7 @@
             </div>
             <div class="col-md-6">
                 <label class="form-label text-primary">Car Type</label>
-                <select class="form-select" aria-label="Car Type"  name="car_type">
+                <select class="form-select" aria-label="Car Type"  name="car_type" id="carType">
                     <option selected>Car Type</option>
                     <option value="Luxury Car">Luxury Car</option>
                     <option value="Premium Car">Premium Car</option>
@@ -555,25 +555,18 @@
             <label for="payment" class="form-label text-primary">Payment Id</label>
             <input type="text" class="form-control" id="payment" placeholder="payment" name="payment">
         </div>
-        <div class="col-md-6">
-            <div class="col-md-6">
-                <label class="form-label text-primary">Customer Id</label>
-                <select class="form-select" aria-label="customer Id"  name="cus_id">
-                    <option selected>Customer Id</option>
-                    <option value="1">Luxury Car</option>
-                    <option value="2">Premium Car</option>
-                    <option value="3">General Car</option>
-                </select>
+            <div class="col-md-6 ">
+                <label for="cus_id" class="form-label text-primary">CustomerId Id</label>
+                <input type="text" class="form-control" id="pay_cus_id" placeholder="customer id" name="payment">
             </div>
-        </div>
         <div class="col-md-6">
             <label for="p_cont_id" class="form-label text-primary">Contact ID</label>
             <input type="text" class="form-control" id="p_cont_id" placeholder="contact" name="cont_id">
         </div>
-        <div class="col-md-6">
-            <label for="total_price" class="form-label text-primary">Total Price</label>
-            <input type="date" class="form-control" id="total_price" placeholder="total_price" name="total_price">
-        </div>
+            <div class="col-md-6 ">
+                <label for="total_price" class="form-label text-primary">Total price</label>
+                <input type="text" class="form-control" id="total_price" placeholder="total_price" name="total_price">
+            </div>
             <button type="button" class="btn btn-primary" id="paymentSaveBtn">Save</button>
             <button type="button" class="btn btn-success" id="paymentGetAllBtn">GetAll</button>
             <button type="button" class="btn btn-danger" id="paymentDeleteBtn">Delete</button>
@@ -728,12 +721,18 @@
     $("#customerId").on("keypress",function (e){
        if (e.key=="Enter"){
            var customerId = $("#customerId").val();
-
            $.ajax({
                url:"http://localhost:8080/15_car_war_exploded/customer/"+customerId,
                method:"GET",
                success:function (res){
                    console.log(res);
+                   var customer = res.data;
+                       $("#customerId").val(customer.cus_id);
+                        $("#customerName").val(customer.cus_name);
+                        $("#customerAddress").val(customer.cus_address);
+                         $("#phoneNumber").val(customer.phoneNumber);
+                         $("#sex").val(customer.gender);
+
                }
            })
        }
@@ -779,6 +778,7 @@
                     let row = `<tr><td>${cus.cus_id}</td><td>${cus.cus_name}</td><td>${cus.cus_address}</td><td>${cus.phone_number}</td><td>${cus.gender}</td></tr>`;
                     $("#tableCustomer").append(row);
                 }
+                bindClickEvent();
             },
             error: function (ob) {
                 alert(ob.responseJSON.message);
@@ -801,13 +801,13 @@
 
    /* update*/
     $("#cusUpdateBtn").click(function () {
-
+        console.log("button");
         var cusOb = {
-            id: $("#customerId").val(),
-            name: $("#customerName").val(),
-            address: $("#customerAddress").val(),
-            phoneNumber: $("#phoneNumber").val(),
-            sex: $("#sex").val()
+            cus_id: $("#customerId").val(),
+            cus_name: $("#customerName").val(),
+            cus_address: $("#customerAddress").val(),
+            phone_number: $("#phoneNumber").val(),
+            gender: $("#sex").val()
         }
 
         $.ajax({
@@ -817,17 +817,57 @@
             data: JSON.stringify(cusOb),
             success: function (res) {
                 console.log(res)
+                console.log("success");
 
             },
-            error: function (ob, errorStus) {
+            error: function (ob) {
                 console.log(ob);
+                alert(ob.responseJSON.message)
+
             }
         });
     });
+    function bindClickEvent() {
+        $("#tableCustomer>tr").click(function () {
+            let customerId = $(this).children().eq(0).text();
+            let customerName = $(this).children().eq(1).text();
+            let customerAddress = $(this).children().eq(2).text();
+            let phoneNumber = $(this).children().eq(3).text();
+            let sex = $(this).children().eq(4).text();
 
+
+            $("#customerId").val(customerId);
+            $("#customerName").val(customerName);
+            $("#customerAddress").val(customerAddress);
+            $("#phoneNumber").val(phoneNumber);
+            $("#sex").val(sex);
+
+        });
+    }
 
 
     /*office*/
+    //search
+
+    $("#officeId").on("keypress",function (e){
+        if (e.key=="Enter"){
+            var officeId = $("#officeId").val();
+            $.ajax({
+                url:"http://localhost:8080/15_car_war_exploded/office/"+officeId,
+                method:"GET",
+                success:function (res){
+                    console.log(res);
+                    var office = res.data;
+                    $("#officeId").val(office.office_id);
+                    $("#officeName").val(office.office_name);
+                    $("#officeAddress").val(office.office_address);
+                    $("#manager").val(office.office_manager);
+
+                }
+            })
+        }
+    });
+
     const basec2 = "http://localhost:8080/15_car_war_exploded/office";
     loadalloffice();
 
@@ -864,7 +904,7 @@
             data: data,
             success: function (res) {
                 if (res.code == 200) {
-                    alert("Save");
+                    alert("Office Save");
                 }
 
                 loadalloffice();
@@ -878,19 +918,21 @@
 /*update*/
     $("#officeUpdatebtn").click(function () {
 
-        var cusOb = {
-            officeId: $("#officeId").val(),
-            officeName: $("#officeName").val(),
-            officeAddress: $("#officeAddress").val(),
-            manager: $("#manager").val()
+        var offOb = {
+            office_id: $("#officeId").val(),
+            office_name: $("#officeName").val(),
+            office_address: $("#officeAddress").val(),
+            office_manager: $("#manager").val()
         }
 
         $.ajax({
             url: "http://localhost:8080/15_car_war_exploded/office",
             method: "PUT",
             contentType: "application/json",
-            data: JSON.stringify(cusOb),
+            data: JSON.stringify(offOb),
             success: function (res) {
+                alert("Office Update")
+                loadalloffice();
                 console.log(res)
             },
             error: function (ob, errorStus) {
@@ -906,12 +948,36 @@
 
             method: "DELETE",
             success: function (res) {
+                alert("Deleted")
+                loadalloffice();
                 console.log(res);
             }
         });
     });
 
     /*Car*/
+    //search
+
+    $("#carId").on("keypress",function (e){
+        if (e.key=="Enter"){
+            var careId = $("#carId").val();
+            $.ajax({
+                url:"http://localhost:8080/15_car_war_exploded/car/"+careId,
+                method:"GET",
+                success:function (res){
+                    console.log(res);
+                    var car = res.data;
+                    $("#carId").val(car.car_id);
+                    $("#carType").val(car.car_type);
+                    $("#carColor").val(car.car_color);
+                    $("#rentPrice").val(car.rent_price);
+                    $("#insurance_num").val(car.insurance_num);
+
+                }
+            })
+        }
+    });
+
     const basec3 = "http://localhost:8080/15_car_war_exploded/car";
     loadAllCar();
 
@@ -960,21 +1026,75 @@
             }
         });
     }
-    /*car*/
+    /*delete*/
     $("#carDeleteBtn").click(function () {
         let carId = $("#carId").val();
+        console.log(carId);
         $.ajax({
-            url: "http://localhost:8080/15_car_war_exploded/car?car_id=" + carId,
+            url: "http://localhost:8080/15_car_war_exploded/car?id=" + carId,
 
             method: "DELETE",
             success: function (res) {
+                alert("Deleted CarRecord");
+                loadAllCar();
                 console.log(res);
+            },
+            error: function (ob) {
+                console.log(ob);
+                alert(ob.responseJSON.message)
+
             }
         });
     });
 
+    /*update*/
+    $("#carUpdateBtn").click(function () {
 
+        var carOb = {
+            car_id: $("#carId").val(),
+            car_type: $("#carType").val(),
+            car_color: $("#carColor").val(),
+            rent_price: $("#rentPrice").val(),
+            insurance_num: $("#insurance_num").val(),
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/car",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(carOb),
+            success: function (res) {
+                alert("Car Update")
+                loadAllCar();
+                console.log(res)
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
+            }
+        });
+    });
     /*employee*/
+    /*search*/
+    $("#emp_id").on("keypress",function (e){
+        if (e.key=="Enter"){
+            var empId = $("#emp_id").val();
+            $.ajax({
+                url:"http://localhost:8080/15_car_war_exploded/employee/"+empId,
+                method:"GET",
+                success:function (res){
+                    console.log(res);
+                    var emp = res.data;
+                    $("#emp_id").val(emp.car_id);
+                    $("#emp_name").val(emp.car_type);
+                    $("#emp_address").val(emp.car_color);
+                    $("#emp_officeId").val(emp.rent_price);
+                    $("#salary").val(emp.insurance_num);
+
+                }
+            })
+        }
+    });
+
     const basec4 = "http://localhost:8080/15_car_war_exploded/employee";
     loadAllEmployee();
 
@@ -1035,7 +1155,57 @@
         });
     });
 
+    $("#employeeUpdateBtn").click(function () {
+
+        var empOb = {
+            emp_id: $("#emp_id").val(),
+            emp_name: $("#emp_name").val(),
+            address: $("#emp_address").val(),
+            office_id: $("#emp_officeId").val(),
+            salary: $("#salary").val(),
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/employee",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(empOb),
+            success: function (res) {
+                alert("employee Update")
+                loadAllEmployee();
+                console.log(res)
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
+            }
+        });
+    });
+
     /*contact*/
+
+    //search
+
+    $("#cont_id").on("keypress",function (e){
+        if (e.key=="Enter"){
+            var contId = $("#cont_id").val();
+            $.ajax({
+                url:"http://localhost:8080/15_car_war_exploded/contact/"+contId,
+                method:"GET",
+                success:function (res){
+                    console.log(res);
+                    var cont = res.data;
+                    $("#cont_id").val(cont.cont_id);
+                    $("#cus_id").val(cont.cus_id);
+                    $("#office_id").val(cont.office_id);
+                    $("#end_date").val(cont.end_date);
+                    $("#start_date").val(cont.start_date);
+                    $("#car_num").val(cont.car_num);
+
+                }
+            })
+        }
+    });
+
     const basec5 = "http://localhost:8080/15_car_war_exploded/contact";
     loadAllContact();
 
@@ -1057,6 +1227,32 @@
             }
         });
     }
+    /!*save*!/
+    const baseContact = "http://localhost:8080/15_car_war_exploded/contact";
+    $("#contactSaveBtn").click(function () {
+        saveContact();
+    });
+
+    function saveContact() {
+        var data = $("#contactForm").serialize();
+        console.log(data);
+        $.ajax({
+            url: baseContact,
+            method: "POST",
+            data: data,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Save Contact");
+                }
+
+                loadAllContact();
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
+            }
+        });
+    }
     /*delete*/
     $("#contactDeleteBtn").click(function () {
         let conId = $("#cont_id").val();
@@ -1065,13 +1261,58 @@
 
             method: "DELETE",
             success: function (res) {
+                loadAllContact();
                 console.log(res);
             }
         });
     });
+    /*update*/
+    $("#contactUpdateBtn").click(function () {
 
+        var contOb = {
+            cont_id: $("#cont_id").val(),
+            cus_id: $("#cus_id").val(),
+            office_id: $("#office_id").val(),
+            end_date: $("#end_date").val(),
+            start_date: $("#start_date").val(),
+            car_num: $("#car_num").val()
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/contact",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(contOb),
+            success: function (res) {
+                alert("Contact Update")
+                loadAllContact();
+                console.log(res)
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
+            }
+        });
+    });
 
     /*insurance*/
+    /*search*/
+    $("#insurance_id").on("keypress",function (e){
+        if (e.key=="Enter"){
+            var insId = $("#insurance_id").val();
+            $.ajax({
+                url:"http://localhost:8080/15_car_war_exploded/insurance/"+insId,
+                method:"GET",
+                success:function (res){
+                    console.log(res);
+                    var ins = res.data;
+                    $("#insurance_id").val(ins.insurance_id);
+                    $("#insurance_type").val(ins.insurance_type);
+
+                }
+            })
+        }
+    });
+
     const basec6 = "http://localhost:8080/15_car_war_exploded/insurance";
     loadAllInsurance();
 
@@ -1093,26 +1334,66 @@
             }
         });
     }
-    $("#ins").click(function () {
-        let conId = $("#cont_id").val();
+    /!*save*!/
+    const baseinsurance = "http://localhost:8080/15_car_war_exploded/insurance";
+    $("#insuranceSaveBtn").click(function () {
+        saveInsurance();
+    });
+
+    function saveInsurance() {
+        var data = $("#insuranceForm").serialize();
+        console.log(data);
         $.ajax({
-            url: "http://localhost:8080/15_car_war_exploded/contact?cont_id=" + conId,
+            url: baseinsurance,
+            method: "POST",
+            data: data,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Save Insurance");
+                }
+
+                loadAllInsurance();
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
+            }
+        });
+    }
+    /*delete*/
+    $("#insuranceDeleteBtn").click(function () {
+        let insuId = $("#insurance_id").val();
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/insurance?insurance_id=" + insuId,
 
             method: "DELETE",
             success: function (res) {
                 console.log(res);
+                loadAllInsurance();
+                alert("Deleted");
             }
         });
     });
-    /*delete*/
-    $("#insuranceDeleteBtn").click(function () {
-        let ins_Id = $("#insurance_id").val();
-        $.ajax({
-            url: "http://localhost:8080/15_car_war_exploded/insurance?insurance_id=" + ins_Id,
+    /*update*/
+    $("#insuranceUpdateBtn").click(function () {
 
-            method: "DELETE",
+        var insOb = {
+            insurance_id: $("#insurance_id").val(),
+            insurance_type: $("#insurance_type").val(),
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/15_car_war_exploded/insurance",
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(insOb),
             success: function (res) {
-                console.log(res);
+                alert("Insurance Update")
+                loadAllInsurance();
+                console.log(res)
+            },
+            error: function (ob, errorStus) {
+                console.log(ob);
             }
         });
     });
@@ -1136,6 +1417,32 @@
             error: function (ob) {
                 alert(ob.responseJSON.message);
 
+            }
+        });
+    }
+    /!*save*!/
+    const basepayment = "http://localhost:8080/15_car_war_exploded/payment";
+    $("#paymentSaveBtn").click(function () {
+        savePayment();
+    });
+
+    function savePayment() {
+        var data = $("#paymentForm").serialize();
+        console.log(data);
+        $.ajax({
+            url: basepayment,
+            method: "POST",
+            data: data,
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Save Payment");
+                }
+
+                loadAllPayment();
+            },
+            error: function (ob, textStatus, error) {
+                alert(textStatus);
+                console.log(ob.responseText);
             }
         });
     }
