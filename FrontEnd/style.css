@@ -1,3 +1,10 @@
+body>div{
+    display: none;
+}
+body>div:nth-child(1){
+    display: block;
+}
+
 .fw-bold {
     position: relative;
     left: 500px;
